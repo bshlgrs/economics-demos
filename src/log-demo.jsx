@@ -17,15 +17,18 @@ const LogDemo = React.createClass({
     functionPlot({
       target: '#demo',
       data: [{
-        fn: 'log(x) * log('+this.state.base+")"
+        fn: 'log(x) / log('+this.state.base+")"
       }],
       xAxis: {
-        domain: [0, 20]
+        domain: [0, this.state.base * 2]
       },
       yAxis: {
-        domain: [0, 10]
+        domain: [-Math.pow(this.state.base, 2), Math.pow(this.state.base, 2)]
       },
+      height: 500,
+      width: 500
     });
+
   },
   render () {
     return <div>
@@ -36,9 +39,13 @@ const LogDemo = React.createClass({
         value={this.state.base}
         onChange={this.changeBase}
         snapToLabels={false} />
-      <p>hello! base is {this.state.base}</p>
 
-      <div id="demo" />
+      <div style={{height: 500, width: 500, position: "relative"}}>
+        <h2 style={{position: "absolute", left: "40%"}} id="graph-title">
+          <i>y</i> = log<sub>{(this.state.base + "").substring(0,4)}</sub>(<i>x</i>)
+        </h2>
+        <div id="demo"/>
+      </div>
     </div>;
   }
 });
