@@ -14,16 +14,18 @@ const LogDemo = React.createClass({
     this.plotFunction();
   },
   plotFunction () {
+    const yLimit = Math.log(20) / Math.log(this.state.base)
+    const domain = [yLimit, -yLimit].sort()
     functionPlot({
       target: '#demo',
       data: [{
         fn: 'log(x) / log('+this.state.base+")"
       }],
       xAxis: {
-        domain: [0, this.state.base * 2]
+        domain: [0, 20]
       },
       yAxis: {
-        domain: [-Math.pow(this.state.base, 2), Math.pow(this.state.base, 2)]
+        domain: domain
       },
       height: 500,
       width: 500
