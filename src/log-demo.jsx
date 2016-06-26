@@ -33,7 +33,8 @@ const LogDemo = React.createClass({
         domain: domain
       },
       height: 500,
-      width: 500
+      width: 500,
+      disableZoom: true
     });
 
   },
