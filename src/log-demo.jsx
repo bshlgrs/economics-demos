@@ -161,7 +161,7 @@ const CustomRangeSlider = React.createClass({
   render () {
     return (
       <div style={{width: "600px", position:'relative'}} >
-        <div style={{height: 20}}>{this.renderLabels()}</div>
+        <div style={{height: 20, margin: 0}}>{this.renderLabels()}</div>
         <input
           type="range"
           onChange={this.handleChange}
@@ -169,7 +169,7 @@ const CustomRangeSlider = React.createClass({
           min="0"
           max="1000"
           value={this.convertLogicalToPhysicalPosition(this.props.value)}
-          style={{width: "100%"}}
+          style={{width: "100%", margin: 0}}
           />
         <datalist id="ticks">
           {this.physicalTickPositions().map((x) => <option key={x}>{parseInt(x)}</option>)}
