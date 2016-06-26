@@ -1,11 +1,15 @@
 const LogDemo = React.createClass({
   getInitialState () {
     return {
-      base: 2
+      base: 2,
+      snapToNearestBase: false
     }
   },
   changeBase (newBase) {
     this.setState({ base: parseFloat(newBase) });
+  },
+  toggleSnapToNearestBase () {
+    this.setState({ snapToNearestBase: !this.state.snapToNearestBase });
   },
   componentDidUpdate () {
     this.plotFunction();
@@ -16,6 +20,7 @@ const LogDemo = React.createClass({
   plotFunction () {
     const yLimit = Math.log(20) / Math.log(this.state.base)
     const domain = [yLimit, -yLimit].sort()
+
     functionPlot({
       target: '#demo',
       data: [{
@@ -40,13 +45,29 @@ const LogDemo = React.createClass({
         labels={[0.01, 1, 2, ["<i>e</i>", 2.71], 3, 4, 5, 6, 7, 8, 9, 10]}
         value={this.state.base}
         onChange={this.changeBase}
-        snapToLabels={false} />
+        snapToLabels={this.state.snapToNearestBase} />
 
-      <div style={{height: 500, width: 500, position: "relative"}}>
+      <div style={{height: 520, width: 500, position: "relative"}}>
         <h2 style={{position: "absolute", left: "40%"}} id="graph-title">
           <i>y</i> = log<sub>{(this.state.base + "").substring(0,4)}</sub>(<i>x</i>)
         </h2>
-        <div id="demo"/>
+        <div id="demo" style={{paddingTop: 20}}/>
+      </div>
+
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <h3>Meta controls</h3>
+          <p>These are controls which I'm giving you to change how this demo works.</p>
+          <p>You can tell me which value you want and I'll hard code it.</p>
+
+          <p>
+            <label>
+              Snap to nearest <i>b</i>
+              <input type="checkbox" value={this.state.snapToNearestBase} onChange={this.toggleSnapToNearestBase} />
+            </label>
+            (This breaks if you snap to 1. If you want this to be on, we can decide on what happens if you set b==1)
+          </p>
+        </div>
       </div>
     </div>;
   }
