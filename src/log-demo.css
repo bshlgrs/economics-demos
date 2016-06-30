@@ -21,3 +21,8 @@
 .greyed-out a {
   color: lightblue;
 }
+
+/* This is the legend on the graph. */
+.top-right-legend {
+  display: none;
+}

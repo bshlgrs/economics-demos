@@ -1,15 +1,43 @@
+var RcSlider = require('rc-slider');
+var React = require("react");
+var ReactDom = require("react-dom")
+
+const EULER_CONSTANT = 2.71828;
+
+const marks = {
+  0: '0',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5'
+};
+
+marks[EULER_CONSTANT] = <i>e</i>;
+
 const LogDemo = React.createClass({
   getInitialState () {
     return {
-      base: 2,
-      snapToNearestBase: false
+      base: 2
     }
   },
   changeBase (newBase) {
-    this.setState({ base: parseFloat(newBase) });
-  },
-  toggleSnapToNearestBase () {
-    this.setState({ snapToNearestBase: !this.state.snapToNearestBase });
+    if (newBase == 1 || newBase == 0) {
+      return;
+    }
+
+    if (Math.abs(newBase - EULER_CONSTANT) < 0.05) {
+      newBase = EULER_CONSTANT;
+    }
+
+    if (Math.abs(newBase - Math.round(newBase)) < 0.05) {
+      // 0, 1, and 2 are all special cases where we don't want to do this.
+      if (Math.round(newBase) > 2) {
+        newBase = Math.round(newBase);
+      }
+    }
+
+    this.setState({ base: newBase });
   },
   componentDidUpdate () {
     this.plotFunction();
@@ -18,169 +46,76 @@ const LogDemo = React.createClass({
     this.plotFunction();
   },
   plotFunction () {
-    const yLimit = Math.log(20) / Math.log(this.state.base)
-    const domain = [yLimit, -yLimit].sort()
+    const xLimit = 40;
 
-    functionPlot({
-      target: '#demo',
-      data: [{
-        fn: 'log(x) / log('+this.state.base+")"
-      }],
-      xAxis: {
-        domain: [0, 20]
-      },
-      yAxis: {
-        domain: domain
-      },
-      height: 500,
-      width: 500,
-      disableZoom: true
-    });
+    if (this.state.base != 1) {
+      const yLimit = Math.log(xLimit) / Math.log(this.state.base)
+      const domain = [yLimit, -yLimit].sort()
+
+      functionPlot({
+        target: '#demo',
+        data: [{
+          fn: 'log(x) / log('+this.state.base+")"
+        }],
+        xAxis: {
+          domain: [0, xLimit]
+        },
+        yAxis: {
+          domain: domain
+        },
+        height: 500,
+        width: 500,
+        grid: true,
+        disableZoom: true
+      });
+    } else {
+      functionPlot({
+        target: '#demo',
+        data: [{
+          x: '0',
+          y: 't',
+          fnType: 'parametric',
+          graphType: 'polyline'
+        }],
+        xAxis: {
+          domain: [0, xLimit]
+        },
+        yAxis: {
+          domain: [-10, 10]
+        },
+        height: 500,
+        width: 500,
+        grid: true,
+        disableZoom: true
+      });
+    }
+
 
   },
   render () {
     return <div>
-      <CustomRangeSlider
-        sliderMin={0.01}
-        sliderMax={10}
-        labels={[0.01, 1, 2, ["<i>e</i>", 2.71], 3, 4, 5, 6, 7, 8, 9, 10]}
+      <RcSlider
+        min={0.01}
+        marks={marks}
+        included={false}
         value={this.state.base}
+        max={5}
         onChange={this.changeBase}
-        snapToLabels={this.state.snapToNearestBase} />
+        step={0.01}
+        included={false}
+        tipFormatter={null}/>
 
       <div style={{height: 520, width: 500, position: "relative"}}>
         <h2 style={{position: "absolute", left: "40%"}} id="graph-title">
-          <i>y</i> = log<sub>{(this.state.base + "").substring(0,4)}</sub>(<i>x</i>)
+          <i>y</i> = log<sub>{this.state.base == EULER_CONSTANT ? <i>e</i> : (this.state.base + "").substring(0,4)}</sub>(<i>x</i>)
         </h2>
         <div id="demo" style={{paddingTop: 20}}/>
-      </div>
-
-      <div className="panel panel-default">
-        <div className="panel-body">
-          <h3>Meta controls</h3>
-          <p>These are controls which I'm giving you to change how this demo works.</p>
-          <p>You can tell me which value you want and I'll hard code it.</p>
-
-          <p>
-            <label>
-              Snap to nearest <i>b</i>
-              <input type="checkbox" value={this.state.snapToNearestBase} onChange={this.toggleSnapToNearestBase} />
-            </label>
-            (This breaks if you snap to 1. If you want this to be on, we can decide on what happens if you set b==1)
-          </p>
-        </div>
       </div>
     </div>;
   }
 });
 
-const CustomRangeSlider = React.createClass({
-  // Throughout, the physical slider positions are between 0 and 100.
-  // The logical slider positions are between sliderMin and sliderMax.
-
-  // Doesn't work in Firefox. I'll have to make this more manually.
-  propTypes: {
-    sliderMin: React.PropTypes.number.isRequired,
-    sliderMax: React.PropTypes.number.isRequired,
-    labels: React.PropTypes.array.isRequired,
-    snapToLabels: React.PropTypes.bool,
-    value: React.PropTypes.number.isRequired
-  },
-
-  logicalTickPositions () {
-    return this.props.labels.map((x) => {
-      if (Array.isArray(x)) {
-        return x[1];
-      } else {
-        return x;
-      }
-    })
-  },
-
-  tickLabelTexts () {
-    return this.props.labels.map((x) => {
-      if (Array.isArray(x)) {
-        return x[0];
-      } else {
-        return x;
-      }
-    })
-  },
-
-  physicalTickPositions () {
-    return this.logicalTickPositions().map(this.convertLogicalToPhysicalPosition);
-  },
-
-  renderLabels() {
-    const physicalTickPositions = this.physicalTickPositions();
-    const tickLabelTexts = this.tickLabelTexts();
-
-    return tickLabelTexts.map((label, idx) =>
-      <span
-        key={label}
-        style={
-          {
-            position: "absolute",
-            left: (1 + physicalTickPositions[idx] * 0.965 * 100 / 1000)+"%",
-            textAlign: "center"
-          }
-        }
-        dangerouslySetInnerHTML={{__html: label}}>
-      </span>
-    );
-  },
-
-  convertLogicalToPhysicalPosition (logicalPosition) {
-    const sliderMin = this.props.sliderMin;
-    const sliderMax = this.props.sliderMax;
-
-    return (logicalPosition - sliderMin) / (sliderMax - sliderMin) * 1000;
-  },
-
-  handleChange (e) {
-    const value = parseInt(e.target.value);
-
-    const sliderMin = this.props.sliderMin;
-    const sliderMax = this.props.sliderMax;
-
-    const clickedValue = (value / 1000) * (sliderMax - sliderMin) + sliderMin;
-
-    if (this.props.snapToLabels) {
-      var closestValue = this.logicalTickPositions()[0];
-
-      this.logicalTickPositions().forEach((pos) => {
-        if (Math.abs(pos - clickedValue) < Math.abs(closestValue - clickedValue)) {
-          closestValue = pos;
-        }
-        this.props.onChange(closestValue);
-      })
-    } else {
-      this.props.onChange(clickedValue);
-    }
-  },
-
-  render () {
-    return (
-      <div style={{width: "600px", position:'relative'}} >
-        <div style={{height: 20, margin: 0}}>{this.renderLabels()}</div>
-        <input
-          type="range"
-          onChange={this.handleChange}
-          list="ticks"
-          min="0"
-          max="1000"
-          value={this.convertLogicalToPhysicalPosition(this.props.value)}
-          style={{width: "100%", margin: 0}}
-          />
-        <datalist id="ticks">
-          {this.physicalTickPositions().map((x) => <option key={x}>{parseInt(x)}</option>)}
-        </datalist>
-      </div>
-    );
-  }
-})
-
-ReactDOM.render(<LogDemo />,
+ReactDom.render(<LogDemo />,
       document.getElementById("log-demo"))
 
 
