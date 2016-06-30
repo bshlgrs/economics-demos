@@ -24220,7 +24220,12 @@ const marks = {
   2: '2',
   3: '3',
   4: '4',
-  5: '5'
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: '10'
 };
 
 marks[EULER_CONSTANT] = React.createElement("i", null, "e");
@@ -24242,6 +24247,9 @@ const LogDemo = React.createClass({displayName: "LogDemo",
 
     if (Math.abs(newBase - Math.round(newBase)) < 0.05) {
       // 0, 1, and 2 are all special cases where we don't want to do this.
+
+      // We don't snap to 0 and 1 because log base 0 and 1 are undefined.
+      // We don't snap to 2 because Nate asked us not to.
       if (Math.round(newBase) > 2) {
         newBase = Math.round(newBase);
       }
@@ -24304,18 +24312,18 @@ const LogDemo = React.createClass({displayName: "LogDemo",
   },
   render () {
     return React.createElement("div", null, 
-      React.createElement(RcSlider, {
-        min: 0.01, 
-        marks: marks, 
-        included: false, 
-        value: this.state.base, 
-        max: 5, 
-        onChange: this.changeBase, 
-        step: 0.01, 
-        included: false, 
-        tipFormatter: null}), 
-
       React.createElement("div", {style: {height: 520, width: 500, position: "relative"}}, 
+        React.createElement(RcSlider, {
+          min: 0.01, 
+          marks: marks, 
+          included: false, 
+          value: this.state.base, 
+          max: 10, 
+          onChange: this.changeBase, 
+          step: 0.01, 
+          included: false, 
+          tipFormatter: null}), 
+
         React.createElement("h2", {style: {position: "absolute", left: "40%"}, id: "graph-title"}, 
           React.createElement("i", null, "y"), " = log", React.createElement("sub", null, this.state.base == EULER_CONSTANT ? React.createElement("i", null, "e") : (this.state.base + "").substring(0,4)), "(", React.createElement("i", null, "x"), ")"
         ), 
