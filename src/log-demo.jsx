@@ -56,53 +56,46 @@ const LogDemo = React.createClass({
   plotFunction () {
     const xLimit = 40;
 
-    if (this.state.base != 1) {
-      const yLimit = Math.log(xLimit) / Math.log(this.state.base)
-      const domain = [yLimit, -yLimit].sort()
+    const yLimit = Math.log(xLimit) / Math.log(this.state.base)
+    const domain = [yLimit, -yLimit].sort()
 
-      functionPlot({
-        target: '#demo',
-        data: [{
-          fn: 'log(x) / log('+this.state.base+")"
-        }],
-        xAxis: {
-          domain: [0, xLimit]
-        },
-        yAxis: {
-          domain: domain
-        },
-        height: 500,
-        width: 500,
-        grid: true,
-        disableZoom: true
-      });
-    } else {
-      functionPlot({
-        target: '#demo',
-        data: [{
-          x: '0',
-          y: 't',
-          fnType: 'parametric',
-          graphType: 'polyline'
-        }],
-        xAxis: {
-          domain: [0, xLimit]
-        },
-        yAxis: {
-          domain: [-10, 10]
-        },
-        height: 500,
-        width: 500,
-        grid: true,
-        disableZoom: true
-      });
-    }
+    functionPlot({
+      target: '#demo',
+      data: [{
+        fn: 'log(x) / log('+this.state.base+")"
+      }],
+      xAxis: {
+        domain: [0, xLimit]
+      },
+      yAxis: {
+        domain: domain
+      },
+      height: 500,
+      width: 500,
+      grid: true,
+      disableZoom: true
+    });
 
-
+    functionPlot({
+      target: '#demo2',
+      data: [{
+        fn: 'log(x) / log('+this.state.base+")"
+      }],
+      xAxis: {
+        domain: [0, xLimit]
+      },
+      yAxis: {
+        domain: [-8, 8]
+      },
+      height: 500,
+      width: 500,
+      grid: true,
+      disableZoom: true
+    });
   },
   render () {
     return <div>
-      <div style={{height: 520, width: 500, position: "relative"}}>
+      <div style={{width:500 }}>
         <RcSlider
           min={0.01}
           marks={marks}
@@ -113,11 +106,20 @@ const LogDemo = React.createClass({
           step={0.01}
           included={false}
           tipFormatter={null}/>
+      </div>
 
+      <div style={{height: 520, width: 500, position: "relative"}}>
         <h2 style={{position: "absolute", left: "40%"}} id="graph-title">
           <i>y</i> = log<sub>{this.state.base == EULER_CONSTANT ? <i>e</i> : (this.state.base + "").substring(0,4)}</sub>(<i>x</i>)
         </h2>
         <div id="demo" style={{paddingTop: 20}}/>
+      </div>
+
+      <div style={{height: 520, width: 500, position: "relative"}}>
+        <h2 style={{position: "absolute", left: "40%"}} id="graph-title">
+          <i>y</i> = log<sub>{this.state.base == EULER_CONSTANT ? <i>e</i> : (this.state.base + "").substring(0,4)}</sub>(<i>x</i>)
+        </h2>
+        <div id="demo2" style={{paddingTop: 20}}/>
       </div>
     </div>;
   }

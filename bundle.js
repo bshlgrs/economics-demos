@@ -24266,53 +24266,46 @@ const LogDemo = React.createClass({displayName: "LogDemo",
   plotFunction () {
     const xLimit = 40;
 
-    if (this.state.base != 1) {
-      const yLimit = Math.log(xLimit) / Math.log(this.state.base)
-      const domain = [yLimit, -yLimit].sort()
+    const yLimit = Math.log(xLimit) / Math.log(this.state.base)
+    const domain = [yLimit, -yLimit].sort()
 
-      functionPlot({
-        target: '#demo',
-        data: [{
-          fn: 'log(x) / log('+this.state.base+")"
-        }],
-        xAxis: {
-          domain: [0, xLimit]
-        },
-        yAxis: {
-          domain: domain
-        },
-        height: 500,
-        width: 500,
-        grid: true,
-        disableZoom: true
-      });
-    } else {
-      functionPlot({
-        target: '#demo',
-        data: [{
-          x: '0',
-          y: 't',
-          fnType: 'parametric',
-          graphType: 'polyline'
-        }],
-        xAxis: {
-          domain: [0, xLimit]
-        },
-        yAxis: {
-          domain: [-10, 10]
-        },
-        height: 500,
-        width: 500,
-        grid: true,
-        disableZoom: true
-      });
-    }
+    functionPlot({
+      target: '#demo',
+      data: [{
+        fn: 'log(x) / log('+this.state.base+")"
+      }],
+      xAxis: {
+        domain: [0, xLimit]
+      },
+      yAxis: {
+        domain: domain
+      },
+      height: 500,
+      width: 500,
+      grid: true,
+      disableZoom: true
+    });
 
-
+    functionPlot({
+      target: '#demo2',
+      data: [{
+        fn: 'log(x) / log('+this.state.base+")"
+      }],
+      xAxis: {
+        domain: [0, xLimit]
+      },
+      yAxis: {
+        domain: [-8, 8]
+      },
+      height: 500,
+      width: 500,
+      grid: true,
+      disableZoom: true
+    });
   },
   render () {
     return React.createElement("div", null, 
-      React.createElement("div", {style: {height: 520, width: 500, position: "relative"}}, 
+      React.createElement("div", {style: {width:500}}, 
         React.createElement(RcSlider, {
           min: 0.01, 
           marks: marks, 
@@ -24322,12 +24315,21 @@ const LogDemo = React.createClass({displayName: "LogDemo",
           onChange: this.changeBase, 
           step: 0.01, 
           included: false, 
-          tipFormatter: null}), 
+          tipFormatter: null})
+      ), 
 
+      React.createElement("div", {style: {height: 520, width: 500, position: "relative"}}, 
         React.createElement("h2", {style: {position: "absolute", left: "40%"}, id: "graph-title"}, 
           React.createElement("i", null, "y"), " = log", React.createElement("sub", null, this.state.base == EULER_CONSTANT ? React.createElement("i", null, "e") : (this.state.base + "").substring(0,4)), "(", React.createElement("i", null, "x"), ")"
         ), 
         React.createElement("div", {id: "demo", style: {paddingTop: 20}})
+      ), 
+
+      React.createElement("div", {style: {height: 520, width: 500, position: "relative"}}, 
+        React.createElement("h2", {style: {position: "absolute", left: "40%"}, id: "graph-title"}, 
+          React.createElement("i", null, "y"), " = log", React.createElement("sub", null, this.state.base == EULER_CONSTANT ? React.createElement("i", null, "e") : (this.state.base + "").substring(0,4)), "(", React.createElement("i", null, "x"), ")"
+        ), 
+        React.createElement("div", {id: "demo2", style: {paddingTop: 20}})
       )
     );
   }
