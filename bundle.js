@@ -24278,7 +24278,8 @@ const LogDemo = React.createClass({displayName: "LogDemo",
         domain: [0, xLimit]
       },
       yAxis: {
-        domain: domain
+        domain: domain,
+        invert: (this.state.base < 1)
       },
       height: 500,
       width: 500,
