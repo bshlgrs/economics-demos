@@ -1,0 +1,10 @@
+.digit {
+  display: inline-block;
+  border: solid;
+  border-color: lightgrey;
+}
+
+.digit-wrapper {
+  font-size: 24px;
+  display: inline-block;
+}
