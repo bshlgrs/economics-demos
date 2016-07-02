@@ -14,7 +14,7 @@ const LogLengthAnimation = React.createClass({
     this.setState({ number: 1 });
     setTimeout(() => {
       this.updateTime();
-    }, 1);
+    }, 60);
   },
   updateTime () {
     var that = this;
@@ -41,6 +41,12 @@ const LogLengthAnimation = React.createClass({
         {numberString.split('').map((x, idx) =>
           <div className="digit" key={idx}>{x}</div>
         )}
+      </div>
+      <div className="log-paragraph">
+        log<sub>10</sub>({this.state.number}) = {Math.log10(this.state.number).toFixed(5)}
+      </div>
+      <div className="length-paragraph">
+        number of digits: {(this.state.number + "").length}
       </div>
       <div>
         <button className="btn btn-default" onClick={this.restart}>Restart</button>

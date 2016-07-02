@@ -19586,7 +19586,7 @@ const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
     this.setState({ number: 1 });
     setTimeout(() => {
       this.updateTime();
-    }, 1);
+    }, 60);
   },
   updateTime () {
     var that = this;
@@ -19613,6 +19613,12 @@ const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
         numberString.split('').map((x, idx) =>
           React.createElement("div", {className: "digit", key: idx}, x)
         )
+      ), 
+      React.createElement("div", {className: "log-paragraph"}, 
+        "log", React.createElement("sub", null, "10"), "(", this.state.number, ") = ", Math.log10(this.state.number).toFixed(5)
+      ), 
+      React.createElement("div", {className: "length-paragraph"}, 
+        "number of digits: ", (this.state.number + "").length
       ), 
       React.createElement("div", null, 
         React.createElement("button", {className: "btn btn-default", onClick: this.restart}, "Restart")

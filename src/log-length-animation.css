@@ -12,3 +12,15 @@
   border-right: solid;
   border-color: lightgrey;
 }
+
+.log-paragraph {
+  font-size: 24px;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.length-paragraph {
+  font-size: 24px;
+  margin-top: 10px;
+  font-size: 20px;
+}
