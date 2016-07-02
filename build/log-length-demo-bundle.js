@@ -19605,7 +19605,8 @@ const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
   },
   render () {
     return React.createElement("div", null, 
-      React.createElement("div", {className: "log-length-demo"}, 
+      React.createElement("h2", null, "Version 1"), 
+      React.createElement("div", {className: "log-length-demo", style: {height: "200px"}}, 
         "log" + ' ' +
         "base", 
         React.createElement("input", {
@@ -19622,7 +19623,7 @@ const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
           value: this.state.number, 
           onChange: this.changeNumber, 
           min: 1, 
-          max: 400, 
+          max: 1000000, 
           type: "number"}), 
           React.createElement("div", {style: {position: "absolute", display: "block", margin: "0 auto"}}, 
             React.createElement("div", {className: "number-display"}, 
@@ -19636,6 +19637,87 @@ const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
         ), 
          "≈ ", 
         (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
+      ), 
+
+      React.createElement("hr", null), 
+
+      React.createElement("h2", null, "Version 2"), 
+      React.createElement("div", {className: "log-length-demo"}, 
+        React.createElement("div", null, 
+          "base =", 
+          React.createElement("input", {
+            className: "big-input", 
+            value: this.state.base, 
+            onChange: this.changeBase, 
+            min: 2, 
+            max: 10, 
+            type: "number"}), 
+          ", x =", 
+          React.createElement("input", {
+            className: "big-input", 
+            value: this.state.number, 
+            onChange: this.changeNumber, 
+            min: 1, 
+            max: 1000000, 
+            type: "number"})
+        ), 
+
+        React.createElement("div", null, 
+          "log", React.createElement("sub", null, this.state.base), "(", this.state.number, ") ≈", 
+          " " + (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
+        ), 
+        React.createElement("div", null, 
+          this.state.number, React.createElement("sub", null, "10"), " = ", this.numberString(), React.createElement("sub", null, this.state.base), " " + ' ' +
+
+          "(", this.numberString().length, " digits)"
+        )
+      ), 
+
+      React.createElement("hr", null), 
+
+      React.createElement("h2", null, "Version 3"), 
+      React.createElement("div", {className: "log-length-demo"}, 
+        React.createElement("div", null, 
+          "base =", 
+          React.createElement("input", {
+            className: "big-input", 
+            value: this.state.base, 
+            onChange: this.changeBase, 
+            min: 2, 
+            max: 10, 
+            type: "number"}), 
+          ", x =", 
+          React.createElement("input", {
+            className: "big-input", 
+            value: this.state.number, 
+            onChange: this.changeNumber, 
+            min: 1, 
+            max: 1000000, 
+            type: "number"})
+        ), 
+
+        React.createElement("div", null, 
+          "log", React.createElement("sub", null, this.state.base), "(", this.state.number, ") ≈", 
+          " " + (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
+        ), 
+        React.createElement("div", null, 
+          this.state.number, React.createElement("sub", null, "10"), " = ", 
+          React.createElement("div", {style: {position: "relative", display: "inline-block", textAlign: "center"}}, 
+            this.numberString(), 
+            React.createElement("div", {style: {
+              position: "absolute",
+              fontSize: "18px",
+              top: "20px",
+              left: (6*this.numberString().length - 95)+"px",
+              width: '200px'}}, 
+
+              React.createElement("div", {style: {position: "relative", top: "20px"}}, 
+                "(", this.numberString().length, " digits)"
+              )
+            )
+          ), 
+          React.createElement("sub", null, this.state.base), " "
+        )
       )
     );
   }

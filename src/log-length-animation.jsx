@@ -30,6 +30,7 @@ const LogLengthAnimation = React.createClass({
       }, 1);
     } else {
       this.setState({ number: 999999 });
+      setTimeout(this.restart, 1000);
     }
   },
   render () {
