@@ -1,5 +1,23 @@
 /* This is the legend on the graph. */
 .big-input {
   text-align: center;
-  width: 70px;
+  width: 80px;
+}
+
+.number-display {
+  text-align: center;
+  border-color: black;
+  border-style: solid;
+  width: 200px;
+  position: relative;
+  left: -60px;
+  top: 20px;
+}
+
+.length-display {
+  width: 200px;
+  text-align: center;
+  position: relative;
+  left: -60px;
+  top: 30px;
 }

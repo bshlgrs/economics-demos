@@ -19625,11 +19625,11 @@ const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
           max: 100, 
           type: "number"}), 
           React.createElement("div", {style: {position: "absolute", display: "block"}}, 
-            React.createElement("div", null, 
+            React.createElement("div", {className: "number-display"}, 
               this.numberString()
             ), 
-            React.createElement("div", null, 
-              "has length ", this.numberString().length
+            React.createElement("div", {className: "length-display"}, 
+              this.numberString().length, " digits"
             )
           ), 
           "≈", 

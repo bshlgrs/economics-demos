@@ -53,11 +53,11 @@ const LogLengthDemo = React.createClass({
           max={100}
           type="number" />
           <div style={{position: "absolute", display: "block"}}>
-            <div>
+            <div className="number-display">
               {this.numberString()}
             </div>
-            <div>
-              has length {this.numberString().length}
+            <div className="length-display">
+              {this.numberString().length} digits
             </div>
           </div>
           ≈
