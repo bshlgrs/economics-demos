@@ -1,5 +1,5 @@
 var React = require("react");
-var ReactDom = require("react-dom")
+var ReactDom = require("react-dom");
 
 const LogLengthDemo = React.createClass({
   getInitialState () {
@@ -33,7 +33,7 @@ const LogLengthDemo = React.createClass({
   },
   render () {
     return <div>
-      <div style={{ fontSize: 30 }}>
+      <div className="log-length-demo">
         log
         base
         <input
@@ -49,20 +49,21 @@ const LogLengthDemo = React.createClass({
           className="big-input"
           value={this.state.number}
           onChange={this.changeNumber}
-          min={0}
-          max={100}
+          min={1}
+          max={400}
           type="number" />
-          <div style={{position: "absolute", display: "block"}}>
+          <div style={{position: "absolute", display: "block", margin: "0 auto"}}>
             <div className="number-display">
               {this.numberString()}
             </div>
+            <img className="brace" src="https://upload.wikimedia.org/wikipedia/commons/8/88/ThinBraceDown.svg" />
             <div className="length-display">
               {this.numberString().length} digits
             </div>
           </div>
-          ≈
-          {(Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)}
         </div>
+         {"≈ "}
+        {(Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)}
       </div>
     </div>;
   }

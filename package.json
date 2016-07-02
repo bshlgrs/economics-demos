@@ -1,0 +1,28 @@
+{
+  "name": "arbital-demos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "rc-slider": "^3.7.2",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-inlinesvg": "^0.5.3",
+    "react-svg": "^1.1.2",
+    "reactify": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bshlgrs/arbital-demos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bshlgrs/arbital-demos/issues"
+  },
+  "homepage": "https://github.com/bshlgrs/arbital-demos#readme"
+}

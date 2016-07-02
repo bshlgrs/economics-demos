@@ -19571,7 +19571,7 @@ module.exports = require('./lib/React');
 
 },{"./lib/React":54}],167:[function(require,module,exports){
 var React = require("react");
-var ReactDom = require("react-dom")
+var ReactDom = require("react-dom");
 
 const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
   getInitialState () {
@@ -19605,7 +19605,7 @@ const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
   },
   render () {
     return React.createElement("div", null, 
-      React.createElement("div", {style: { fontSize: 30}}, 
+      React.createElement("div", {className: "log-length-demo"}, 
         "log" + ' ' +
         "base", 
         React.createElement("input", {
@@ -19621,20 +19621,21 @@ const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
           className: "big-input", 
           value: this.state.number, 
           onChange: this.changeNumber, 
-          min: 0, 
-          max: 100, 
+          min: 1, 
+          max: 400, 
           type: "number"}), 
-          React.createElement("div", {style: {position: "absolute", display: "block"}}, 
+          React.createElement("div", {style: {position: "absolute", display: "block", margin: "0 auto"}}, 
             React.createElement("div", {className: "number-display"}, 
               this.numberString()
             ), 
+            React.createElement("img", {className: "brace", src: "https://upload.wikimedia.org/wikipedia/commons/8/88/ThinBraceDown.svg"}), 
             React.createElement("div", {className: "length-display"}, 
               this.numberString().length, " digits"
             )
-          ), 
-          "≈", 
-          (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
-        )
+          )
+        ), 
+         "≈ ", 
+        (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
       )
     );
   }
