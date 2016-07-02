@@ -18,7 +18,6 @@ const LogLengthAnimation = React.createClass({
   },
   updateTime () {
     var that = this;
-    console.log("blah " + this.state.number);
     if (this.state.number < 999999) {
       this.setState({
         number: Math.min(
@@ -43,12 +42,14 @@ const LogLengthAnimation = React.createClass({
           <div className="digit" key={idx}>{x}</div>
         )}
       </div>
-      <button className="btn btn-default" onClick={this.restart}>Restart</button>
+      <div>
+        <button className="btn btn-default" onClick={this.restart}>Restart</button>
+      </div>
     </div>;
   }
 });
 
-ReactDom.render(<LogLengthAnimation rate={130} totalTime={10}/>,
+ReactDom.render(<LogLengthAnimation rate={13} />,
       document.getElementById("log-length-animation"));
 
 

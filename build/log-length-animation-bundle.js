@@ -19590,7 +19590,6 @@ const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
   },
   updateTime () {
     var that = this;
-    console.log("blah " + this.state.number);
     if (this.state.number < 999999) {
       this.setState({
         number: Math.min(
@@ -19615,12 +19614,14 @@ const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
           React.createElement("div", {className: "digit", key: idx}, x)
         )
       ), 
-      React.createElement("button", {className: "btn btn-default", onClick: this.restart}, "Restart")
+      React.createElement("div", null, 
+        React.createElement("button", {className: "btn btn-default", onClick: this.restart}, "Restart")
+      )
     );
   }
 });
 
-ReactDom.render(React.createElement(LogLengthAnimation, {rate: 130, totalTime: 10}),
+ReactDom.render(React.createElement(LogLengthAnimation, {rate: 13}),
       document.getElementById("log-length-animation"));
 
 },{"react":166,"react-dom":28}],168:[function(require,module,exports){

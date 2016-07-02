@@ -1,10 +1,14 @@
 .digit {
   display: inline-block;
-  border: solid;
+  border-left: solid;
+  border-top: solid;
+  border-bottom: solid;
   border-color: lightgrey;
 }
 
 .digit-wrapper {
   font-size: 24px;
   display: inline-block;
+  border-right: solid;
+  border-color: lightgrey;
 }
