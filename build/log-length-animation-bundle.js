@@ -19576,7 +19576,8 @@ var ReactDom = require("react-dom");
 const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
   getInitialState () {
     return {
-      number: 0
+      number: 0,
+      rate: this.props.rate
     }
   },
   componentDidMount () {
@@ -19594,16 +19595,19 @@ const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
       this.setState({
         number: Math.min(
           this.state.number +
-          10 * this.props.rate +
-          Math.round(Math.random() * this.props.rate), 999999)
+          10 * this.state.rate +
+          Math.round(Math.random() * this.state.rate), 999999)
       });
       setTimeout(() => {
         that.updateTime();
-      }, 1);
+      }, 30);
     } else {
       this.setState({ number: 999999 });
       setTimeout(this.restart, 1000);
     }
+  },
+  changeRate (e) {
+    this.setState({rate: parseFloat(e.target.value)});
   },
   render () {
     const startString = this.state.number + "";
@@ -19623,6 +19627,11 @@ const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
       ), 
       React.createElement("div", null, 
         React.createElement("button", {className: "btn btn-default", onClick: this.restart}, "Restart")
+      ), 
+      React.createElement("div", null, 
+        React.createElement("label", null, "Meta control: Rate", 
+          React.createElement("input", {type: "number", value: this.state.rate, onChange: this.changeRate})
+        )
       )
     );
   }
