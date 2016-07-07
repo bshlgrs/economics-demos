@@ -50157,7 +50157,7 @@ mapping = {
 // You can't do forEach on the result of this function call, because JavaScript
 const demo_targets = document.getElementsByClassName("react-demo");
 
-$(() => {
+window.loadAllDemos = function () {
   $(".react-demo").each((idx, div) => {
     const demo = div.attributes["data-demo-name"].value;
 
@@ -50170,7 +50170,7 @@ $(() => {
       console.log(Object.keys(mapping).join(", ") + ".");
     }
   });
-});
+};
 
 },{"./log-graph-demo.jsx":300,"./log-length-animation.jsx":302,"./log-length-demo.jsx":304,"jquery":94,"react":295,"react-dom":157}],299:[function(require,module,exports){
 var css = ".emaildownTemplate li {\n  list-style: none;\n}\n.emaildownTemplate ul {\n  padding-left: 20px;\n}\n.emaildownTemplate > div {\n  padding-left: 20px;\n}\n.emaildownTemplate {\n  margin-left: -20px;\n}\n.greyed-out {\n  color: lightgrey;\n}\n.greyed-out a {\n  color: lightblue;\n}\n/* This is the legend on the graph. */\n.top-right-legend {\n  display: none;\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-graph-demo.css"})); module.exports = css;

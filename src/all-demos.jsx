@@ -14,7 +14,7 @@ mapping = {
 // You can't do forEach on the result of this function call, because JavaScript
 const demo_targets = document.getElementsByClassName("react-demo");
 
-$(() => {
+window.loadAllDemos = function () {
   $(".react-demo").each((idx, div) => {
     const demo = div.attributes["data-demo-name"].value;
 
@@ -27,4 +27,4 @@ $(() => {
       console.log(Object.keys(mapping).join(", ") + ".");
     }
   });
-});
+};
