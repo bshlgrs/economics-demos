@@ -50141,25 +50141,27 @@ module.exports = warning;
 
 }).call(this,require('_process'))
 },{"_process":310}],298:[function(require,module,exports){
-var logGraphDemo = require("./log-graph-demo.jsx");
-var logLengthDemo = require("./log-length-demo.jsx");
-var logLengthAnimation = require("./log-length-animation.jsx");
+"use strict";
+
+var logGraphDemo = require("./log-graph-demo.js");
+var logLengthDemo = require("./log-length-demo.js");
+var logLengthAnimation = require("./log-length-animation.js");
 var React = require("react");
 var ReactDom = require("react-dom");
 var $ = require("jquery");
 
-mapping = {
+var mapping = {
   "log-graph-demo": logGraphDemo.LogGraphDemo,
   "log-length-demo": logLengthDemo.LogLengthDemo,
-  "log-length-animation": logLengthAnimation.LogLengthAnimation,
+  "log-length-animation": logLengthAnimation.LogLengthAnimation
 };
 
 // You can't do forEach on the result of this function call, because JavaScript
-const demo_targets = document.getElementsByClassName("react-demo");
+var demo_targets = document.getElementsByClassName("react-demo");
 
 window.loadAllDemos = function () {
-  $(".react-demo").each((idx, div) => {
-    const demo = div.attributes["data-demo-name"].value;
+  $(".react-demo").each(function (idx, div) {
+    var demo = div.attributes["data-demo-name"].value;
 
     if (mapping[demo]) {
       console.log("Trying to render " + demo + " onto page");
@@ -50172,22 +50174,26 @@ window.loadAllDemos = function () {
   });
 };
 
-},{"./log-graph-demo.jsx":300,"./log-length-animation.jsx":302,"./log-length-demo.jsx":304,"jquery":94,"react":295,"react-dom":157}],299:[function(require,module,exports){
+},{"./log-graph-demo.js":300,"./log-length-animation.js":302,"./log-length-demo.js":304,"jquery":94,"react":295,"react-dom":157}],299:[function(require,module,exports){
 var css = ".emaildownTemplate li {\n  list-style: none;\n}\n.emaildownTemplate ul {\n  padding-left: 20px;\n}\n.emaildownTemplate > div {\n  padding-left: 20px;\n}\n.emaildownTemplate {\n  margin-left: -20px;\n}\n.greyed-out {\n  color: lightgrey;\n}\n.greyed-out a {\n  color: lightblue;\n}\n/* This is the legend on the graph. */\n.top-right-legend {\n  display: none;\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-graph-demo.css"})); module.exports = css;
 },{"browserify-css":5}],300:[function(require,module,exports){
-const RcSlider = require('rc-slider');
-const sliderCss = require("../lib/slider.css");
-const React = require("react");
-const ReactDom = require("react-dom")
-const d3 = require('d3-browserify');
+"use strict";
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var RcSlider = require('rc-slider');
+var sliderCss = require("../lib/slider.css");
+var React = require("react");
+var ReactDom = require("react-dom");
+var d3 = require('d3-browserify');
 window.d3 = d3;
-const functionPlot = require('function-plot');
+var functionPlot = require('function-plot');
 
-const css = require("./log-graph-demo.css");
+var css = require("./log-graph-demo.css");
 
-const EULER_CONSTANT = 2.71828;
+var EULER_CONSTANT = 2.71828;
 
-const marks = {
+var marks = {
   0: '0',
   1: '1',
   2: '2',
@@ -50201,15 +50207,20 @@ const marks = {
   10: '10'
 };
 
-marks[EULER_CONSTANT] = React.createElement("i", null, "e");
+marks[EULER_CONSTANT] = React.createElement(
+  "i",
+  null,
+  "e"
+);
 
-const LogGraphDemo = React.createClass({displayName: "LogGraphDemo",
-  getInitialState () {
+var LogGraphDemo = React.createClass({
+  displayName: "LogGraphDemo",
+  getInitialState: function getInitialState() {
     return {
       base: 2
-    }
+    };
   },
-  changeBase (newBase) {
+  changeBase: function changeBase(newBase) {
     if (newBase == 1 || newBase == 0) {
       return;
     }
@@ -50230,29 +50241,29 @@ const LogGraphDemo = React.createClass({displayName: "LogGraphDemo",
 
     this.setState({ base: newBase });
   },
-  componentDidUpdate () {
+  componentDidUpdate: function componentDidUpdate() {
     this.plotFunction();
   },
-  componentDidMount () {
+  componentDidMount: function componentDidMount() {
     this.plotFunction();
   },
-  plotFunction () {
-    const xLimit = 40;
+  plotFunction: function plotFunction() {
+    var xLimit = 40;
 
-    const yLimit = Math.log(xLimit) / Math.log(this.state.base)
-    const domain = [yLimit, -yLimit].sort()
+    var yLimit = Math.log(xLimit) / Math.log(this.state.base);
+    var domain = [yLimit, -yLimit].sort();
 
     functionPlot({
       target: '#demo',
       data: [{
-        fn: 'log(x) / log('+this.state.base+")"
+        fn: 'log(x) / log(' + this.state.base + ")"
       }],
       xAxis: {
         domain: [0, xLimit]
       },
       yAxis: {
         domain: domain,
-        invert: (this.state.base < 1)
+        invert: this.state.base < 1
       },
       height: 500,
       width: 500,
@@ -50279,33 +50290,86 @@ const LogGraphDemo = React.createClass({displayName: "LogGraphDemo",
     //   disableZoom: true
     // });
   },
-  render () {
-    return React.createElement("div", null, 
-      React.createElement("div", {style: {width:500}}, 
-        React.createElement(RcSlider, {
-          min: 0.01, 
-          marks: marks, 
-          included: false, 
-          value: this.state.base, 
-          max: 10, 
-          onChange: this.changeBase, 
-          step: 0.01, 
-          included: false, 
-          tipFormatter: null})
-      ), 
+  render: function render() {
+    var _React$createElement;
 
-      React.createElement("div", {style: {height: 520, width: 500, position: "relative"}}, 
-        React.createElement("h2", {style: {position: "absolute", left: "40%"}, id: "graph-title"}, 
-          React.createElement("i", null, "y"), " = log", React.createElement("sub", null, this.state.base == EULER_CONSTANT ? React.createElement("i", null, "e") : (this.state.base + "").substring(0,4)), "(", React.createElement("i", null, "x"), ")"
-        ), 
-        React.createElement("div", {id: "demo", style: {paddingTop: 20}})
-      ), 
-
-      false && React.createElement("div", {style: {height: 520, width: 500, position: "relative"}}, 
-        React.createElement("h2", {style: {position: "absolute", left: "40%"}, id: "graph-title"}, 
-          React.createElement("i", null, "y"), " = log", React.createElement("sub", null, this.state.base == EULER_CONSTANT ? React.createElement("i", null, "e") : (this.state.base + "").substring(0,4)), "(", React.createElement("i", null, "x"), ")"
-        ), 
-        React.createElement("div", {id: "demo2", style: {paddingTop: 20}})
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "div",
+        { style: { width: 500 } },
+        React.createElement(RcSlider, (_React$createElement = {
+          min: 0.01,
+          marks: marks,
+          included: false,
+          value: this.state.base,
+          max: 10,
+          onChange: this.changeBase,
+          step: 0.01
+        }, _defineProperty(_React$createElement, "included", false), _defineProperty(_React$createElement, "tipFormatter", null), _React$createElement))
+      ),
+      React.createElement(
+        "div",
+        { style: { height: 520, width: 500, position: "relative" } },
+        React.createElement(
+          "h2",
+          { style: { position: "absolute", left: "40%" }, id: "graph-title" },
+          React.createElement(
+            "i",
+            null,
+            "y"
+          ),
+          " = log",
+          React.createElement(
+            "sub",
+            null,
+            this.state.base == EULER_CONSTANT ? React.createElement(
+              "i",
+              null,
+              "e"
+            ) : (this.state.base + "").substring(0, 4)
+          ),
+          "(",
+          React.createElement(
+            "i",
+            null,
+            "x"
+          ),
+          ")"
+        ),
+        React.createElement("div", { id: "demo", style: { paddingTop: 20 } })
+      ),
+      false && React.createElement(
+        "div",
+        { style: { height: 520, width: 500, position: "relative" } },
+        React.createElement(
+          "h2",
+          { style: { position: "absolute", left: "40%" }, id: "graph-title" },
+          React.createElement(
+            "i",
+            null,
+            "y"
+          ),
+          " = log",
+          React.createElement(
+            "sub",
+            null,
+            this.state.base == EULER_CONSTANT ? React.createElement(
+              "i",
+              null,
+              "e"
+            ) : (this.state.base + "").substring(0, 4)
+          ),
+          "(",
+          React.createElement(
+            "i",
+            null,
+            "x"
+          ),
+          ")"
+        ),
+        React.createElement("div", { id: "demo2", style: { paddingTop: 20 } })
       )
     );
   }
@@ -50316,37 +50380,39 @@ exports.LogGraphDemo = LogGraphDemo;
 },{"../lib/slider.css":1,"./log-graph-demo.css":299,"d3-browserify":15,"function-plot":64,"rc-slider":144,"react":295,"react-dom":157}],301:[function(require,module,exports){
 var css = ".digit {\n  display: inline-block;\n  border-left: solid;\n  border-top: solid;\n  border-bottom: solid;\n  border-color: lightgrey;\n}\n.digit-wrapper {\n  font-size: 24px;\n  display: inline-block;\n  border-right: solid;\n  border-color: lightgrey;\n}\n.log-paragraph {\n  font-size: 24px;\n  margin-top: 10px;\n  font-size: 20px;\n}\n.length-paragraph {\n  font-size: 24px;\n  margin-top: 10px;\n  font-size: 20px;\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-length-animation.css"})); module.exports = css;
 },{"browserify-css":5}],302:[function(require,module,exports){
-const React = require("react");
-const ReactDom = require("react-dom");
+"use strict";
 
-const css = require("./log-length-animation.css");
+var React = require("react");
+var ReactDom = require("react-dom");
 
-const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
-  getInitialState () {
+var css = require("./log-length-animation.css");
+
+var LogLengthAnimation = React.createClass({
+  displayName: "LogLengthAnimation",
+  getInitialState: function getInitialState() {
     return {
       number: 0
-    }
+    };
   },
-  componentDidMount () {
+  componentDidMount: function componentDidMount() {
     this.restart();
     this.rate = 0.3;
   },
-  restart () {
+  restart: function restart() {
+    var _this = this;
+
     this.setState({ number: 1 });
-    setTimeout(() => {
-      this.updateTime();
+    setTimeout(function () {
+      _this.updateTime();
     }, 60);
   },
-  updateTime () {
+  updateTime: function updateTime() {
     var that = this;
     if (this.state.number < 999999) {
       this.setState({
-        number: Math.min(
-          this.state.number +
-          10 * this.rate +
-          Math.round(Math.random() * this.rate), 999999)
+        number: Math.min(this.state.number + 10 * this.rate + Math.round(Math.random() * this.rate), 999999)
       });
-      setTimeout(() => {
+      setTimeout(function () {
         that.updateTime();
       }, 30);
     } else {
@@ -50354,24 +50420,52 @@ const LogLengthAnimation = React.createClass({displayName: "LogLengthAnimation",
       setTimeout(this.restart, 1000);
     }
   },
-  render () {
-    const startString = this.state.number + "";
-    const numberString = ('000000'+startString).substring(startString.length);
+  render: function render() {
+    var startString = this.state.number + "";
+    var numberString = ('000000' + startString).substring(startString.length);
 
-    return React.createElement("div", null, 
-      React.createElement("div", {className: "digit-wrapper"}, 
-        numberString.split('').map((x, idx) =>
-          React.createElement("div", {className: "digit", key: idx}, x)
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "div",
+        { className: "digit-wrapper" },
+        numberString.split('').map(function (x, idx) {
+          return React.createElement(
+            "div",
+            { className: "digit", key: idx },
+            x
+          );
+        })
+      ),
+      React.createElement(
+        "div",
+        { className: "log-paragraph" },
+        "log",
+        React.createElement(
+          "sub",
+          null,
+          "10"
+        ),
+        "(",
+        this.state.number,
+        ") = ",
+        Math.log10(this.state.number).toFixed(5)
+      ),
+      React.createElement(
+        "div",
+        { className: "length-paragraph" },
+        "number of digits: ",
+        (this.state.number + "").length
+      ),
+      React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "button",
+          { className: "btn btn-default", onClick: this.restart },
+          "Restart"
         )
-      ), 
-      React.createElement("div", {className: "log-paragraph"}, 
-        "log", React.createElement("sub", null, "10"), "(", this.state.number, ") = ", Math.log10(this.state.number).toFixed(5)
-      ), 
-      React.createElement("div", {className: "length-paragraph"}, 
-        "number of digits: ", (this.state.number + "").length
-      ), 
-      React.createElement("div", null, 
-        React.createElement("button", {className: "btn btn-default", onClick: this.restart}, "Restart")
       )
     );
   }
@@ -50382,25 +50476,28 @@ exports.LogLengthAnimation = LogLengthAnimation;
 },{"./log-length-animation.css":301,"react":295,"react-dom":157}],303:[function(require,module,exports){
 var css = ".big-input {\n  text-align: center;\n  width: 80px;\n  margin-left: 10px;\n  margin-right: 10px;\n}\n.number-display {\n  text-align: center;\n  width: 200px;\n  position: relative;\n  left: -50px;\n  top: 20px;\n}\n.length-display {\n  width: 200px;\n  text-align: center;\n  position: relative;\n  left: -50px;\n  top: 12px;\n}\n.log-length-demo {\n  font-size: 24px;\n}\n.brace {\n  width: 100px;\n  top: 10px;\n  position: relative;\n}\n.absolute {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-50%);\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-length-demo.css"})); module.exports = css;
 },{"browserify-css":5}],304:[function(require,module,exports){
-const React = require("react");
-const ReactDom = require("react-dom");
+"use strict";
 
-const css = require("./log-length-demo.css");
+var React = require("react");
+var ReactDom = require("react-dom");
 
-const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
-  getInitialState () {
+var css = require("./log-length-demo.css");
+
+var LogLengthDemo = React.createClass({
+  displayName: "LogLengthDemo",
+  getInitialState: function getInitialState() {
     return {
       number: 7,
       base: 2
-    }
+    };
   },
-  changeNumber(e) {
-    this.setState({number: Math.max(0, parseInt(e.target.value))});
+  changeNumber: function changeNumber(e) {
+    this.setState({ number: Math.max(0, parseInt(e.target.value)) });
   },
-  changeBase(e) {
-    this.setState({base: Math.max(0, parseInt(e.target.value))});
+  changeBase: function changeBase(e) {
+    this.setState({ base: Math.max(0, parseInt(e.target.value)) });
   },
-  numberString() {
+  numberString: function numberString() {
     if (this.state.base < 2 || this.state.number < 0) {
       return "error";
     }
@@ -50417,184 +50514,272 @@ const LogLengthDemo = React.createClass({displayName: "LogLengthDemo",
       return res;
     }
   },
-  render () {
-    return React.createElement("div", null, 
-
-      React.createElement("h2", null, "Version 4"), 
-
-      React.createElement("p", null, " Suggested compromise version: 3 lines, first line is like version 1," + ' ' +
-       "second line is like \"7 (in base 10) is 111 (in base 2)\"" + ' ' +
-       ", third line is an underbrace under 111 saying \"3 digits\"" + ' ' +
-       ". Second line is left-aligned, spacing between lines is" + ' ' +
-       "similar to version 1."), 
-
-      React.createElement("div", {className: "log-length-demo", style: {height: "200px"}}, 
-        React.createElement("div", null, 
-          "log" + ' ' +
-          "base", 
+  render: function render() {
+    return React.createElement(
+      "div",
+      null,
+      React.createElement(
+        "h2",
+        null,
+        "Version 4"
+      ),
+      React.createElement(
+        "p",
+        null,
+        " Suggested compromise version: 3 lines, first line is like version 1, second line is like \"7 (in base 10) is 111 (in base 2)\" , third line is an underbrace under 111 saying \"3 digits\" . Second line is left-aligned, spacing between lines is similar to version 1."
+      ),
+      React.createElement(
+        "div",
+        { className: "log-length-demo", style: { height: "200px" } },
+        React.createElement(
+          "div",
+          null,
+          "log base",
           React.createElement("input", {
-            className: "big-input", 
-            value: this.state.base, 
-            onChange: this.changeBase, 
-            min: 2, 
-            max: 10, 
-            type: "number"}), 
-          "of", 
-
-            React.createElement("input", {
-            className: "big-input", 
-            value: this.state.number, 
-            onChange: this.changeNumber, 
-            min: 1, 
-            max: 1000000, 
-            type: "number"}), 
-           "≈ ", 
+            className: "big-input",
+            value: this.state.base,
+            onChange: this.changeBase,
+            min: 2,
+            max: 10,
+            type: "number" }),
+          "of",
+          React.createElement("input", {
+            className: "big-input",
+            value: this.state.number,
+            onChange: this.changeNumber,
+            min: 1,
+            max: 1000000,
+            type: "number" }),
+          "≈ ",
           (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
-        ), 
-
-        React.createElement("div", {style: {marginTop: "10px"}}, 
-          this.state.number, " (in base 10) is ", 
-          React.createElement("div", {style: {display: "inline-block", position: "relative"}}, 
-            this.numberString(), 
-            React.createElement("div", {style: {position: "absolute", display: "block", margin: "0 auto"}}, 
-              React.createElement("img", {className: "brace", src: "https://upload.wikimedia.org/wikipedia/commons/8/88/ThinBraceDown.svg"}), 
-              React.createElement("div", null, 
-                this.numberString().length, " digits"
+        ),
+        React.createElement(
+          "div",
+          { style: { marginTop: "10px" } },
+          this.state.number,
+          " (in base 10) is ",
+          React.createElement(
+            "div",
+            { style: { display: "inline-block", position: "relative" } },
+            this.numberString(),
+            React.createElement(
+              "div",
+              { style: { position: "absolute", display: "block", margin: "0 auto" } },
+              React.createElement("img", { className: "brace", src: "https://upload.wikimedia.org/wikipedia/commons/8/88/ThinBraceDown.svg" }),
+              React.createElement(
+                "div",
+                null,
+                this.numberString().length,
+                " digits"
               )
             )
-          ), 
-          " (in base ", this.state.base, ")"
+          ),
+          " (in base ",
+          this.state.base,
+          ")"
         )
-      ), 
-
-      React.createElement("hr", null), 
-
-      React.createElement("h2", null, "Version 1"), 
-      React.createElement("div", {className: "log-length-demo", style: {height: "200px"}}, 
-        "log" + ' ' +
-        "base", 
+      ),
+      React.createElement("hr", null),
+      React.createElement(
+        "h2",
+        null,
+        "Version 1"
+      ),
+      React.createElement(
+        "div",
+        { className: "log-length-demo", style: { height: "200px" } },
+        "log base",
         React.createElement("input", {
-          className: "big-input", 
-          value: this.state.base, 
-          onChange: this.changeBase, 
-          min: 2, 
-          max: 10, 
-          type: "number"}), 
-        "of", 
-        React.createElement("div", {style: {display: "inline-block", position: "relative"}}, 
+          className: "big-input",
+          value: this.state.base,
+          onChange: this.changeBase,
+          min: 2,
+          max: 10,
+          type: "number" }),
+        "of",
+        React.createElement(
+          "div",
+          { style: { display: "inline-block", position: "relative" } },
           React.createElement("input", {
-          className: "big-input", 
-          value: this.state.number, 
-          onChange: this.changeNumber, 
-          min: 1, 
-          max: 1000000, 
-          type: "number"}), 
-          React.createElement("div", {style: {position: "absolute", display: "block", margin: "0 auto"}}, 
-            React.createElement("div", {className: "number-display"}, 
+            className: "big-input",
+            value: this.state.number,
+            onChange: this.changeNumber,
+            min: 1,
+            max: 1000000,
+            type: "number" }),
+          React.createElement(
+            "div",
+            { style: { position: "absolute", display: "block", margin: "0 auto" } },
+            React.createElement(
+              "div",
+              { className: "number-display" },
               this.numberString()
-            ), 
-            React.createElement("img", {className: "brace", src: "https://upload.wikimedia.org/wikipedia/commons/8/88/ThinBraceDown.svg"}), 
-            React.createElement("div", {className: "length-display"}, 
-              this.numberString().length, " digits"
+            ),
+            React.createElement("img", { className: "brace", src: "https://upload.wikimedia.org/wikipedia/commons/8/88/ThinBraceDown.svg" }),
+            React.createElement(
+              "div",
+              { className: "length-display" },
+              this.numberString().length,
+              " digits"
             )
           )
-        ), 
-         "≈ ", 
+        ),
+        "≈ ",
         (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
-      ), 
-
-      React.createElement("hr", null), 
-
-      React.createElement("h2", null, "Version 2"), 
-      React.createElement("div", {className: "log-length-demo"}, 
-        React.createElement("div", null, 
-          "base =", 
+      ),
+      React.createElement("hr", null),
+      React.createElement(
+        "h2",
+        null,
+        "Version 2"
+      ),
+      React.createElement(
+        "div",
+        { className: "log-length-demo" },
+        React.createElement(
+          "div",
+          null,
+          "base =",
           React.createElement("input", {
-            className: "big-input", 
-            value: this.state.base, 
-            onChange: this.changeBase, 
-            min: 2, 
-            max: 10, 
-            type: "number"}), 
-          ", x =", 
+            className: "big-input",
+            value: this.state.base,
+            onChange: this.changeBase,
+            min: 2,
+            max: 10,
+            type: "number" }),
+          ", x =",
           React.createElement("input", {
-            className: "big-input", 
-            value: this.state.number, 
-            onChange: this.changeNumber, 
-            min: 1, 
-            max: 1000000, 
-            type: "number"})
-        ), 
-
-        React.createElement("div", null, 
-          "log", React.createElement("sub", null, this.state.base), "(", this.state.number, ") ≈", 
+            className: "big-input",
+            value: this.state.number,
+            onChange: this.changeNumber,
+            min: 1,
+            max: 1000000,
+            type: "number" })
+        ),
+        React.createElement(
+          "div",
+          null,
+          "log",
+          React.createElement(
+            "sub",
+            null,
+            this.state.base
+          ),
+          "(",
+          this.state.number,
+          ") ≈",
           " " + (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
-        ), 
-        React.createElement("div", null, 
-          this.state.number, React.createElement("sub", null, "10"), " = ", this.numberString(), React.createElement("sub", null, this.state.base), " " + ' ' +
-
-          "(", this.numberString().length, " digits)"
+        ),
+        React.createElement(
+          "div",
+          null,
+          this.state.number,
+          React.createElement(
+            "sub",
+            null,
+            "10"
+          ),
+          " = ",
+          this.numberString(),
+          React.createElement(
+            "sub",
+            null,
+            this.state.base
+          ),
+          "  (",
+          this.numberString().length,
+          " digits)"
         )
-      ), 
-
-      React.createElement("hr", null), 
-
-      React.createElement("h2", null, "Version 3"), 
-      React.createElement("div", {className: "log-length-demo"}, 
-        React.createElement("div", null, 
-          "base =", 
+      ),
+      React.createElement("hr", null),
+      React.createElement(
+        "h2",
+        null,
+        "Version 3"
+      ),
+      React.createElement(
+        "div",
+        { className: "log-length-demo" },
+        React.createElement(
+          "div",
+          null,
+          "base =",
           React.createElement("input", {
-            className: "big-input", 
-            value: this.state.base, 
-            onChange: this.changeBase, 
-            min: 2, 
-            max: 10, 
-            type: "number"}), 
-          ", x =", 
+            className: "big-input",
+            value: this.state.base,
+            onChange: this.changeBase,
+            min: 2,
+            max: 10,
+            type: "number" }),
+          ", x =",
           React.createElement("input", {
-            className: "big-input", 
-            value: this.state.number, 
-            onChange: this.changeNumber, 
-            min: 1, 
-            max: 1000000, 
-            type: "number"})
-        ), 
-
-        React.createElement("div", null, 
-          "log", React.createElement("sub", null, this.state.base), "(", this.state.number, ") ≈", 
+            className: "big-input",
+            value: this.state.number,
+            onChange: this.changeNumber,
+            min: 1,
+            max: 1000000,
+            type: "number" })
+        ),
+        React.createElement(
+          "div",
+          null,
+          "log",
+          React.createElement(
+            "sub",
+            null,
+            this.state.base
+          ),
+          "(",
+          this.state.number,
+          ") ≈",
           " " + (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
-        ), 
-        React.createElement("div", null, 
-          this.state.number, React.createElement("sub", null, "10"), " = ", 
-          React.createElement("div", {style: {position: "relative", display: "inline-block", textAlign: "center", marginBottom: "40px"}}, 
-            this.numberString(), 
-            React.createElement("div", {style: {
-              position: "absolute",
-              fontSize: "18px",
-              top: "20px",
-              left: (6*this.numberString().length - 95)+"px",
-              width: '200px'}}, 
-
-              React.createElement("div", {style: {position: "relative", top: "20px"}}, 
-                "(", this.numberString().length, " digits)"
+        ),
+        React.createElement(
+          "div",
+          null,
+          this.state.number,
+          React.createElement(
+            "sub",
+            null,
+            "10"
+          ),
+          " = ",
+          React.createElement(
+            "div",
+            { style: { position: "relative", display: "inline-block", textAlign: "center", marginBottom: "40px" } },
+            this.numberString(),
+            React.createElement(
+              "div",
+              { style: {
+                  position: "absolute",
+                  fontSize: "18px",
+                  top: "20px",
+                  left: 6 * this.numberString().length - 95 + "px",
+                  width: '200px' } },
+              React.createElement(
+                "div",
+                { style: { position: "relative", top: "20px" } },
+                "(",
+                this.numberString().length,
+                " digits)"
               )
             )
-          ), 
-          React.createElement("sub", null, this.state.base), " "
+          ),
+          React.createElement(
+            "sub",
+            null,
+            this.state.base
+          ),
+          " "
         )
-      ), 
-
+      ),
       React.createElement("hr", null)
-
     );
   }
-})
+});
 
 // ReactDom.render(<LogLengthDemo />,
 //       document.getElementById("log-length-demo"));
-
-
-
 
 exports.LogLengthDemo = LogLengthDemo;
 
