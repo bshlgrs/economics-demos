@@ -50146,6 +50146,7 @@ module.exports = warning;
 var logGraphDemo = require("./log-graph-demo.js");
 var logLengthDemo = require("./log-length-demo.js");
 var logLengthAnimation = require("./log-length-animation.js");
+
 var React = require("react");
 var ReactDom = require("react-dom");
 var $ = require("jquery");
@@ -50515,19 +50516,10 @@ var LogLengthDemo = React.createClass({
     }
   },
   render: function render() {
+    var lengthOfNumberString = this.numberString().length;
     return React.createElement(
       "div",
       null,
-      React.createElement(
-        "h2",
-        null,
-        "Version 4"
-      ),
-      React.createElement(
-        "p",
-        null,
-        " Suggested compromise version: 3 lines, first line is like version 1, second line is like \"7 (in base 10) is 111 (in base 2)\" , third line is an underbrace under 111 saying \"3 digits\" . Second line is left-aligned, spacing between lines is similar to version 1."
-      ),
       React.createElement(
         "div",
         { className: "log-length-demo", style: { height: "200px" } },
@@ -50564,216 +50556,31 @@ var LogLengthDemo = React.createClass({
             this.numberString(),
             React.createElement(
               "div",
-              { style: { position: "absolute", display: "block", margin: "0 auto" } },
-              React.createElement("img", { className: "brace", src: "https://upload.wikimedia.org/wikipedia/commons/8/88/ThinBraceDown.svg" }),
-              React.createElement(
-                "div",
-                null,
-                this.numberString().length,
-                " digits"
-              )
+              { style: { position: "absolute", display: "block", margin: "0 auto", top: "20px" } },
+              React.createElement("img", {
+                width: 13.5 * lengthOfNumberString + "px",
+                height: "10px",
+                src: "http://forum.makemusic.com/attach.aspx/21570/Brace%20Below.jpg" })
+            ),
+            React.createElement(
+              "div",
+              { style: {
+                  position: "absolute",
+                  display: "block",
+                  top: "40px",
+                  width: "100px",
+                  left: 6.75 * lengthOfNumberString - 50 + "px",
+                  textAlign: "center"
+                } },
+              this.numberString().length,
+              " digits"
             )
           ),
           " (in base ",
           this.state.base,
           ")"
         )
-      ),
-      React.createElement("hr", null),
-      React.createElement(
-        "h2",
-        null,
-        "Version 1"
-      ),
-      React.createElement(
-        "div",
-        { className: "log-length-demo", style: { height: "200px" } },
-        "log base",
-        React.createElement("input", {
-          className: "big-input",
-          value: this.state.base,
-          onChange: this.changeBase,
-          min: 2,
-          max: 10,
-          type: "number" }),
-        "of",
-        React.createElement(
-          "div",
-          { style: { display: "inline-block", position: "relative" } },
-          React.createElement("input", {
-            className: "big-input",
-            value: this.state.number,
-            onChange: this.changeNumber,
-            min: 1,
-            max: 1000000,
-            type: "number" }),
-          React.createElement(
-            "div",
-            { style: { position: "absolute", display: "block", margin: "0 auto" } },
-            React.createElement(
-              "div",
-              { className: "number-display" },
-              this.numberString()
-            ),
-            React.createElement("img", { className: "brace", src: "https://upload.wikimedia.org/wikipedia/commons/8/88/ThinBraceDown.svg" }),
-            React.createElement(
-              "div",
-              { className: "length-display" },
-              this.numberString().length,
-              " digits"
-            )
-          )
-        ),
-        "≈ ",
-        (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
-      ),
-      React.createElement("hr", null),
-      React.createElement(
-        "h2",
-        null,
-        "Version 2"
-      ),
-      React.createElement(
-        "div",
-        { className: "log-length-demo" },
-        React.createElement(
-          "div",
-          null,
-          "base =",
-          React.createElement("input", {
-            className: "big-input",
-            value: this.state.base,
-            onChange: this.changeBase,
-            min: 2,
-            max: 10,
-            type: "number" }),
-          ", x =",
-          React.createElement("input", {
-            className: "big-input",
-            value: this.state.number,
-            onChange: this.changeNumber,
-            min: 1,
-            max: 1000000,
-            type: "number" })
-        ),
-        React.createElement(
-          "div",
-          null,
-          "log",
-          React.createElement(
-            "sub",
-            null,
-            this.state.base
-          ),
-          "(",
-          this.state.number,
-          ") ≈",
-          " " + (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
-        ),
-        React.createElement(
-          "div",
-          null,
-          this.state.number,
-          React.createElement(
-            "sub",
-            null,
-            "10"
-          ),
-          " = ",
-          this.numberString(),
-          React.createElement(
-            "sub",
-            null,
-            this.state.base
-          ),
-          "  (",
-          this.numberString().length,
-          " digits)"
-        )
-      ),
-      React.createElement("hr", null),
-      React.createElement(
-        "h2",
-        null,
-        "Version 3"
-      ),
-      React.createElement(
-        "div",
-        { className: "log-length-demo" },
-        React.createElement(
-          "div",
-          null,
-          "base =",
-          React.createElement("input", {
-            className: "big-input",
-            value: this.state.base,
-            onChange: this.changeBase,
-            min: 2,
-            max: 10,
-            type: "number" }),
-          ", x =",
-          React.createElement("input", {
-            className: "big-input",
-            value: this.state.number,
-            onChange: this.changeNumber,
-            min: 1,
-            max: 1000000,
-            type: "number" })
-        ),
-        React.createElement(
-          "div",
-          null,
-          "log",
-          React.createElement(
-            "sub",
-            null,
-            this.state.base
-          ),
-          "(",
-          this.state.number,
-          ") ≈",
-          " " + (Math.log(this.state.number) / Math.log(this.state.base)).toFixed(5)
-        ),
-        React.createElement(
-          "div",
-          null,
-          this.state.number,
-          React.createElement(
-            "sub",
-            null,
-            "10"
-          ),
-          " = ",
-          React.createElement(
-            "div",
-            { style: { position: "relative", display: "inline-block", textAlign: "center", marginBottom: "40px" } },
-            this.numberString(),
-            React.createElement(
-              "div",
-              { style: {
-                  position: "absolute",
-                  fontSize: "18px",
-                  top: "20px",
-                  left: 6 * this.numberString().length - 95 + "px",
-                  width: '200px' } },
-              React.createElement(
-                "div",
-                { style: { position: "relative", top: "20px" } },
-                "(",
-                this.numberString().length,
-                " digits)"
-              )
-            )
-          ),
-          React.createElement(
-            "sub",
-            null,
-            this.state.base
-          ),
-          " "
-        )
-      ),
-      React.createElement("hr", null)
+      )
     );
   }
 });

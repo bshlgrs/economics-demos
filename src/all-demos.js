@@ -1,6 +1,7 @@
 var logGraphDemo = require("./log-graph-demo.js");
 var logLengthDemo = require("./log-length-demo.js");
 var logLengthAnimation = require("./log-length-animation.js");
+
 var React = require("react");
 var ReactDom = require("react-dom");
 var $ = require("jquery");
@@ -8,7 +9,7 @@ var $ = require("jquery");
 const mapping = {
   "log-graph-demo": logGraphDemo.LogGraphDemo,
   "log-length-demo": logLengthDemo.LogLengthDemo,
-  "log-length-animation": logLengthAnimation.LogLengthAnimation,
+  "log-length-animation": logLengthAnimation.LogLengthAnimation
 };
 
 // You can't do forEach on the result of this function call, because JavaScript
