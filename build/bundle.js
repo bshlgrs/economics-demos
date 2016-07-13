@@ -50552,7 +50552,7 @@ var LogLengthDemo = React.createClass({
           " (in base 10) is ",
           React.createElement(
             "div",
-            { style: { display: "inline-block", position: "relative" } },
+            { style: { display: "inline-block", position: "relative", marginBottom: "36px" } },
             this.numberString(),
             React.createElement(
               "div",
@@ -50560,7 +50560,7 @@ var LogLengthDemo = React.createClass({
               React.createElement("img", {
                 width: 13.5 * lengthOfNumberString + "px",
                 height: "10px",
-                src: "http://forum.makemusic.com/attach.aspx/21570/Brace%20Below.jpg" })
+                src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/GullBraceDown.svg/120px-GullBraceDown.svg.png" })
             ),
             React.createElement(
               "div",

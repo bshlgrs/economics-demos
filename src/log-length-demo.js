@@ -62,13 +62,13 @@ const LogLengthDemo = React.createClass({
 
         <div style={{marginTop: "10px"}}>
           {this.state.number} (in base 10) is&nbsp;
-          <div style={{display: "inline-block", position: "relative"}}>
+          <div style={{display: "inline-block", position: "relative", marginBottom: "36px"}}>
             {this.numberString()}
             <div style={{position: "absolute", display: "block", margin: "0 auto", top: "20px"}}>
               <img
                 width={13.5 * lengthOfNumberString + "px"}
                 height="10px"
-                src="http://forum.makemusic.com/attach.aspx/21570/Brace%20Below.jpg" />
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/GullBraceDown.svg/120px-GullBraceDown.svg.png" />
             </div>
             <div style={
               {
