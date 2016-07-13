@@ -103,8 +103,8 @@ const LogGraphDemo = React.createClass({
     // });
   },
   render () {
-    return <div>
-      <div style={{width:500 }}>
+    return <div className="log-graph-demo">
+      <div>
         <RcSlider
           min={0.01}
           marks={marks}

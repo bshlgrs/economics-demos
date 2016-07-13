@@ -26,3 +26,8 @@
 .top-right-legend {
   display: none;
 }
+
+.log-graph-demo {
+  width: 500px;
+  margin: auto;
+}

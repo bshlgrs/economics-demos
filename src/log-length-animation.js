@@ -40,7 +40,7 @@ const LogLengthAnimation = React.createClass({
     const startString = this.state.number + "";
     const numberString = ('000000'+startString).substring(startString.length);
 
-    return <div>
+    return <div className="log-length-animation">
       <div className="digit-wrapper">
         {numberString.split('').map((x, idx) =>
           <div className="digit" key={idx}>{x}</div>

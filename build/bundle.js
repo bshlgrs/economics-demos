@@ -50176,7 +50176,7 @@ window.loadAllDemos = function () {
 };
 
 },{"./log-graph-demo.js":300,"./log-length-animation.js":302,"./log-length-demo.js":304,"jquery":94,"react":295,"react-dom":157}],299:[function(require,module,exports){
-var css = ".emaildownTemplate li {\n  list-style: none;\n}\n.emaildownTemplate ul {\n  padding-left: 20px;\n}\n.emaildownTemplate > div {\n  padding-left: 20px;\n}\n.emaildownTemplate {\n  margin-left: -20px;\n}\n.greyed-out {\n  color: lightgrey;\n}\n.greyed-out a {\n  color: lightblue;\n}\n/* This is the legend on the graph. */\n.top-right-legend {\n  display: none;\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-graph-demo.css"})); module.exports = css;
+var css = ".emaildownTemplate li {\n  list-style: none;\n}\n.emaildownTemplate ul {\n  padding-left: 20px;\n}\n.emaildownTemplate > div {\n  padding-left: 20px;\n}\n.emaildownTemplate {\n  margin-left: -20px;\n}\n.greyed-out {\n  color: lightgrey;\n}\n.greyed-out a {\n  color: lightblue;\n}\n/* This is the legend on the graph. */\n.top-right-legend {\n  display: none;\n}\n.log-graph-demo {\n  width: 500px;\n  margin: auto;\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-graph-demo.css"})); module.exports = css;
 },{"browserify-css":5}],300:[function(require,module,exports){
 "use strict";
 
@@ -50296,10 +50296,10 @@ var LogGraphDemo = React.createClass({
 
     return React.createElement(
       "div",
-      null,
+      { className: "log-graph-demo" },
       React.createElement(
         "div",
-        { style: { width: 500 } },
+        null,
         React.createElement(RcSlider, (_React$createElement = {
           min: 0.01,
           marks: marks,
@@ -50379,7 +50379,7 @@ var LogGraphDemo = React.createClass({
 exports.LogGraphDemo = LogGraphDemo;
 
 },{"../lib/slider.css":1,"./log-graph-demo.css":299,"d3-browserify":15,"function-plot":64,"rc-slider":144,"react":295,"react-dom":157}],301:[function(require,module,exports){
-var css = ".digit {\n  display: inline-block;\n  border-left: solid;\n  border-top: solid;\n  border-bottom: solid;\n  border-color: lightgrey;\n}\n.digit-wrapper {\n  font-size: 24px;\n  display: inline-block;\n  border-right: solid;\n  border-color: lightgrey;\n}\n.log-paragraph {\n  font-size: 24px;\n  margin-top: 10px;\n  font-size: 20px;\n}\n.length-paragraph {\n  font-size: 24px;\n  margin-top: 10px;\n  font-size: 20px;\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-length-animation.css"})); module.exports = css;
+var css = ".digit {\n  display: inline-block;\n  border-left: solid;\n  border-top: solid;\n  border-bottom: solid;\n  border-color: lightgrey;\n}\n.digit-wrapper {\n  font-size: 24px;\n  display: inline-block;\n  border-right: solid;\n  border-color: lightgrey;\n}\n.log-paragraph {\n  font-size: 24px;\n  margin-top: 10px;\n  font-size: 20px;\n}\n.length-paragraph {\n  font-size: 24px;\n  margin-top: 10px;\n  font-size: 20px;\n}\n.log-length-animation {\n  margin: auto;\n  width: 400px;\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-length-animation.css"})); module.exports = css;
 },{"browserify-css":5}],302:[function(require,module,exports){
 "use strict";
 
@@ -50427,7 +50427,7 @@ var LogLengthAnimation = React.createClass({
 
     return React.createElement(
       "div",
-      null,
+      { className: "log-length-animation" },
       React.createElement(
         "div",
         { className: "digit-wrapper" },
@@ -50475,7 +50475,7 @@ var LogLengthAnimation = React.createClass({
 exports.LogLengthAnimation = LogLengthAnimation;
 
 },{"./log-length-animation.css":301,"react":295,"react-dom":157}],303:[function(require,module,exports){
-var css = ".big-input {\n  text-align: center;\n  width: 80px;\n  margin-left: 10px;\n  margin-right: 10px;\n}\n.number-display {\n  text-align: center;\n  width: 200px;\n  position: relative;\n  left: -50px;\n  top: 20px;\n}\n.length-display {\n  width: 200px;\n  text-align: center;\n  position: relative;\n  left: -50px;\n  top: 12px;\n}\n.log-length-demo {\n  font-size: 24px;\n}\n.brace {\n  width: 100px;\n  top: 10px;\n  position: relative;\n}\n.absolute {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-50%);\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-length-demo.css"})); module.exports = css;
+var css = ".big-input {\n  text-align: center;\n  width: 80px;\n  margin-left: 10px;\n  margin-right: 10px;\n}\n.number-display {\n  text-align: center;\n  width: 200px;\n  position: relative;\n  left: -50px;\n  top: 20px;\n}\n.length-display {\n  width: 200px;\n  text-align: center;\n  position: relative;\n  left: -50px;\n  top: 12px;\n}\n.log-length-demo {\n  font-size: 24px;\n  width: 500px;\n  margin: auto;\n  text-align: center;\n}\n.brace {\n  width: 100px;\n  top: 10px;\n  position: relative;\n}\n.absolute {\n  position: absolute;\n  top: 0;\n  left: 50%;\n  transform: translateX(-50%);\n}\n"; (require("browserify-css").createStyle(css, { "href": "src/log-length-demo.css"})); module.exports = css;
 },{"browserify-css":5}],304:[function(require,module,exports){
 "use strict";
 
