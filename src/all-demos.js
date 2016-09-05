@@ -1,6 +1,3 @@
-var logGraphDemo = require("./log-graph-demo.js");
-var logLengthDemo = require("./log-length-demo.js");
-var logLengthAnimation = require("./log-length-animation.js");
 var giniDemo = require("./gini-demo.js");
 
 var React = require("react");
@@ -8,9 +5,6 @@ var ReactDom = require("react-dom");
 var $ = require("jquery");
 
 const mapping = {
-  "log-graph-demo": logGraphDemo.LogGraphDemo,
-  "log-length-demo": logLengthDemo.LogLengthDemo,
-  "log-length-animation": logLengthAnimation.LogLengthAnimation,
   "gini-demo": giniDemo.GiniDemo
 };
 
