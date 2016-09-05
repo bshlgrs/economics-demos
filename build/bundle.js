@@ -31191,14 +31191,31 @@ var GiniDemo = React.createClass({
       }
     }
 
-    var mean = incomes.reduce(function (x, y) {
-      return x + y;
-    }) / incomes.length;
+    var mean = this.meanIncome();
 
     if (mean == 0) {
       return null;
     } else {
       return totalAbsoluteDifference / (2 * incomes.length * incomes.length * mean);
+    }
+  },
+  meanIncome: function meanIncome() {
+    if (this.state.incomes.length) {
+      return this.state.incomes.reduce(function (x, y) {
+        return x + y;
+      }) / this.state.incomes.length;
+    } else {
+      return null;
+    }
+  },
+  meanLogIncomeOverLogMeanIncome: function meanLogIncomeOverLogMeanIncome() {
+    if (this.state.incomes.length) {
+      var incomes = this.state.incomes;
+      var meanLogIncome = incomes.map(Math.log).reduce(function (x, y) {
+        return x + y;
+      }) / incomes.length;
+      console.log(meanLogIncome, "meanLogIncome");
+      return meanLogIncome / Math.log(this.meanIncome());
     }
   },
   renderCumulativeIncomesGraph: function renderCumulativeIncomesGraph() {
@@ -31216,12 +31233,8 @@ var GiniDemo = React.createClass({
 
     var trianglePath = "M 0,1 " + incomes.map(function (income, idx) {
       var x = (idx + 1) / numIncomes;
-      var y1 = idx == 0 ? incomes[0] : cumulativeIncomes[idx - 1] + incomes[idx - 1];
-      var y2 = cumulativeIncomes[idx];
-      console.log(idx, y1, y2);
-      // return "L " + x + "," + numberToY(y1) +
-      //        " L " + x + "," + numberToY(y2);
-      return " L " + x + "," + numberToY(y2);
+      var y = cumulativeIncomes[idx];
+      return " L " + x + "," + numberToY(y);
     }).join(" ") + " L 1,1 L 0,1";
 
     return React.createElement(
@@ -31254,6 +31267,8 @@ var GiniDemo = React.createClass({
   render: function render() {
     var _this3 = this;
 
+    var empty = this.state.incomes.length == 0;
+    var giniCoefficient = this.giniCoefficient();
     return React.createElement(
       "div",
       null,
@@ -31262,33 +31277,18 @@ var GiniDemo = React.createClass({
         { className: "row" },
         React.createElement(
           "div",
-          { className: "col-md-6" },
+          { className: "col-md-12" },
           React.createElement(
-            "div",
-            { style: { position: "fixed" } },
-            React.createElement(
-              "div",
-              { className: "panel panel-default" },
-              React.createElement(
-                "div",
-                { className: "panel-body" },
-                React.createElement(
-                  "p",
-                  null,
-                  "Enter a comma-separated list of incomes."
-                ),
-                React.createElement(CommaSeparatedNumberTextarea, {
-                  defaultStringValue: "1, 1, 2, 2",
-                  onChange: function onChange(incomes) {
-                    return _this3.setState({ incomes: incomes });
-                  } })
-              )
-            )
-          )
-        ),
-        React.createElement(
-          "div",
-          { className: "col-md-6" },
+            "p",
+            null,
+            "Enter a comma-separated list of incomes."
+          ),
+          React.createElement(CommaSeparatedNumberTextarea, {
+            defaultStringValue: "1, 1, 2, 2",
+            onChange: function onChange(incomes) {
+              return _this3.setState({ incomes: incomes });
+            } }),
+          React.createElement("hr", null),
           React.createElement(
             "p",
             null,
@@ -31296,27 +31296,28 @@ var GiniDemo = React.createClass({
             React.createElement(
               "strong",
               null,
-              this.giniCoefficient() || "undefined"
+              giniCoefficient ? giniCoefficient.toFixed(3) : "null"
             ),
             "."
           ),
           React.createElement("hr", null),
+          false && this.renderIncomesGraph(),
           React.createElement(
             "p",
             null,
-            "Here's a graph of the income distribution."
-          ),
-          this.renderIncomesGraph(),
-          React.createElement(
-            "p",
-            null,
-            "Now here's a graph of the cumulative income distribution."
+            "Here's your ",
+            React.createElement(
+              "a",
+              { href: "https://en.wikipedia.org/wiki/Lorenz_curve" },
+              "Lorenz curve"
+            ),
+            ":"
           ),
           this.renderCumulativeIncomesGraph(),
           React.createElement(
             "p",
             null,
-            "The Gini coefficient is the area of the grey section of the cumulative income graph divided by the sum of the red and grey areas. If everyone has the same income, then it will be 0. If one person has all the money, it will be 1."
+            "The Gini coefficient is the area of the grey section of the Lorenz curve divided by the sum of the red and grey areas. If everyone has the same income, then it will be 0. If one person has all the money, it will be 1."
           ),
           React.createElement(
             "h4",
@@ -31328,6 +31329,18 @@ var GiniDemo = React.createClass({
             null,
             "Population size: ",
             this.state.incomes.length
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Average income: ",
+            empty ? "undefined" : this.meanIncome().toFixed(3)
+          ),
+          React.createElement(
+            "p",
+            null,
+            "Mean log income over log mean income: ",
+            empty ? "undefined" : this.meanLogIncomeOverLogMeanIncome().toFixed(3)
           )
         )
       )
@@ -31365,6 +31378,7 @@ var CommaSeparatedNumberTextarea = React.createClass({
       onChange: function onChange(e) {
         return _this4.handleChange(e);
       },
+      className: "form-control",
       onBlur: function onBlur() {
         return _this4.setState({ focused: false });
       },

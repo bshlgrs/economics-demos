@@ -71,12 +71,27 @@ const GiniDemo = React.createClass({
       }
     }
 
-    var mean = incomes.reduce((x, y) => x + y) / incomes.length;
+    var mean = this.meanIncome();
 
     if (mean == 0) {
       return null;
     } else {
       return totalAbsoluteDifference / (2 * incomes.length * incomes.length * mean);
+    }
+  },
+  meanIncome () {
+    if (this.state.incomes.length) {
+      return this.state.incomes.reduce((x, y) => x + y) / this.state.incomes.length;
+    } else {
+      return null;
+    }
+  },
+  meanLogIncomeOverLogMeanIncome () {
+    if (this.state.incomes.length) {
+      var incomes = this.state.incomes;
+      var meanLogIncome = incomes.map(Math.log).reduce((x, y) => x + y) / incomes.length;
+      console.log(meanLogIncome, "meanLogIncome");
+      return meanLogIncome / Math.log(this.meanIncome());
     }
   },
   renderCumulativeIncomesGraph () {
@@ -90,12 +105,8 @@ const GiniDemo = React.createClass({
 
     var trianglePath = "M 0,1 " + incomes.map((income, idx) => {
       var x = (idx + 1)/numIncomes;
-      var y1 = (idx == 0 ? incomes[0] : cumulativeIncomes[idx - 1] + incomes[idx - 1]);
-      var y2 = cumulativeIncomes[idx];
-      console.log(idx, y1, y2);
-      // return "L " + x + "," + numberToY(y1) +
-      //        " L " + x + "," + numberToY(y2);
-      return " L " + x + "," + numberToY(y2);
+      var y = cumulativeIncomes[idx];
+      return " L " + x + "," + numberToY(y);
     }).join(" ") + " L 1,1 L 0,1";
 
     return <svg xmlns="http://www.w3.org/2000/svg"
@@ -117,31 +128,27 @@ const GiniDemo = React.createClass({
     </svg>
   },
   render () {
+    var empty = this.state.incomes.length == 0;
+    var giniCoefficient = this.giniCoefficient();
     return <div>
       <div className="row">
-        <div className="col-md-6">
-          <div style={{position: "fixed"}}>
-            <div className="panel panel-default">
-              <div className="panel-body">
-                <p>Enter a comma-separated list of incomes.</p>
-                <CommaSeparatedNumberTextarea
-                  defaultStringValue={"1, 1, 2, 2"}
-                  onChange={(incomes) => this.setState({incomes: incomes})} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-6">
-          <p>Your Gini coefficient is <strong>{this.giniCoefficient() || "undefined"}</strong>.</p>
+        <div className="col-md-12">
+          <p>Enter a comma-separated list of incomes.</p>
+          <CommaSeparatedNumberTextarea
+            defaultStringValue={"1, 1, 2, 2"}
+            onChange={(incomes) => this.setState({incomes: incomes})} />
+          <hr/>
+          <p>Your Gini coefficient is <strong>{giniCoefficient ? giniCoefficient.toFixed(3) : "null"}</strong>.</p>
           <hr />
-          <p>Here's a graph of the income distribution.</p>
-          {this.renderIncomesGraph()}
-          <p>Now here's a graph of the cumulative income distribution.</p>
+          {false && this.renderIncomesGraph()}
+          <p>Here's your <a href="https://en.wikipedia.org/wiki/Lorenz_curve">Lorenz curve</a>:</p>
           {this.renderCumulativeIncomesGraph()}
-          <p>The Gini coefficient is the area of the grey section of the cumulative income graph divided by the sum of the red and grey areas.
+          <p>The Gini coefficient is the area of the grey section of the Lorenz curve divided by the sum of the red and grey areas.
           If everyone has the same income, then it will be 0. If one person has all the money, it will be 1.</p>
           <h4>Other summary statistics:</h4>
           <p>Population size: {this.state.incomes.length}</p>
+          <p>Average income: {empty ? "undefined" : this.meanIncome().toFixed(3)}</p>
+          <p>Mean log income over log mean income: {empty ? "undefined" : this.meanLogIncomeOverLogMeanIncome().toFixed(3)}</p>
         </div>
       </div>
     </div>;
@@ -173,6 +180,7 @@ const CommaSeparatedNumberTextarea = React.createClass({
       value={this.state.textareaValue}
       style={{backgroundColor: (this.state.legit || this.state.focused) ? "white" : "pink"}}
       onChange={(e) => this.handleChange(e)}
+      className="form-control"
       onBlur={() => this.setState({focused: false})}
       onFocus={() => this.setState({focused: true})}
       />
