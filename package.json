@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "chart.js": "^1.1.1",
     "d3": "^4.1.0",
     "function-plot": "^1.17.0",
     "rc-slider": "^3.7.2",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
+    "react": "^15.3.1",
+    "react-d3-basic": "^1.6.11",
+    "react-dom": "^15.3.1",
     "react-inlinesvg": "^0.5.3",
     "react-svg": "^1.1.2",
     "reactify": "^1.1.1"
