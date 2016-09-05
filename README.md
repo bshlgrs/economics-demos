@@ -1,3 +1,6 @@
-# You are in the wrong place!
+# economics demos
 
-I do all my development on the [`gh-pages` branch.](https://github.com/bshlgrs/arbital-demos/tree/gh-pages), so that it's immediately viewable.
+To compile, use:
+
+    wr "browserify -t [ babelify --presets [ react es2015 ] ] -t browserify-css js/main.jsx -o build/bundle.js" js
+
