@@ -8,7 +8,7 @@ const BundlingDemo = React.createClass({
         { name: "Buck", prices: [100, 80] },
         { name: "Daniel", prices: [80, 100] },
       ]),
-      products: Immutable.fromJS(["Word", "Excel"])
+      products: Immutable.fromJS(["Radiohead", "Nirvana"])
     }
   },
   handleChange(e, personIdx, productIdx) {

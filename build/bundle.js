@@ -36100,7 +36100,7 @@ var BundlingDemo = React.createClass({
   getInitialState: function getInitialState() {
     return {
       people: Immutable.fromJS([{ name: "Buck", prices: [100, 80] }, { name: "Daniel", prices: [80, 100] }]),
-      products: Immutable.fromJS(["Word", "Excel"])
+      products: Immutable.fromJS(["Radiohead", "Nirvana"])
     };
   },
   handleChange: function handleChange(e, personIdx, productIdx) {
