@@ -8,7 +8,7 @@ const BundlingDemo = React.createClass({
         { name: "Buck", prices: [100, 80] },
         { name: "Daniel", prices: [80, 100] },
       ]),
-      products: Immutable.fromJS(["Radiohead", "Nirvana"])
+      products: Immutable.fromJS(["Word", "Excel"])
     }
   },
   handleChange(e, personIdx, productIdx) {
@@ -70,7 +70,7 @@ const BundlingDemo = React.createClass({
           </tr>
           {this.state.products.map((x, productIdx) =>
             <tr key={productIdx}>
-              <td>Maximum price for {x}</td>
+              <td>WTP for {x}</td>
               {this.state.people.map((person, personIdx) =>
                 <td key={personIdx}>
                   <input
@@ -80,8 +80,16 @@ const BundlingDemo = React.createClass({
               )}
             </tr>
           )}
+          <tr>
+            <td>WTP for a bundle</td>
+            {possibleBundlePrices.map((price, idx) => <td key={idx}>${price}</td>)}
+          </tr>
         </tbody>
       </table>
+
+      <p>The profit maximizing price is found by considering all possible prices for
+        a product, then evaluating each based on the number of people who'd buy the
+        product at that price multiplied by the price.</p>
 
       <table className="table table-bordered">
         <tbody>
