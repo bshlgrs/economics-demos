@@ -1,5 +1,7 @@
 var giniDemo = require("./gini-demo.js");
 var lorenzCurve = require("./lorenz-curve.js");
+var fedOrFirePost = require("./fed-or-fire-post.js");
+var bundlingDemo = require("./bundling-demo.js");
 
 var React = require("react");
 var ReactDom = require("react-dom");
@@ -7,7 +9,9 @@ var $ = require("jquery");
 
 const mapping = {
   "gini-demo": giniDemo.GiniDemo,
-  "lorenz-curve": lorenzCurve.LorenzCurve
+  "lorenz-curve": lorenzCurve.LorenzCurve,
+  "fed-or-fire-post": fedOrFirePost.FedOrFirePost,
+  "bundling-demo": bundlingDemo.BundlingDemo
 };
 
 // You can't do forEach on the result of this function call, because JavaScript

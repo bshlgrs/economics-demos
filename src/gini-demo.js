@@ -1,5 +1,4 @@
 const React = require("react");
-const ReactDom = require("react-dom");
 const css = require("./gini-demo.css");
 const Textarea = require('react-textarea-autosize').default;
 const CommaSeparatedNumberTextarea = require('./comma-separated-number-textarea').CommaSeparatedNumberTextarea;
@@ -36,7 +35,6 @@ const GiniDemo = React.createClass({
   render () {
     var incomeData = this.state.incomeData
     var empty = incomeData.length == 0;
-
 
     return <div>
       <div className="row">
