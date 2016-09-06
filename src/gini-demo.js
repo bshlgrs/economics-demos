@@ -56,9 +56,9 @@ const GiniDemo = React.createClass({
           </div>
           <p>The Gini coefficient <i>G</i> is the area of the grey section of the Lorenz curve divided by the sum of the red and grey areas.
           If everyone has the same income, then it will be 0. If one person has all the money, it will be 1.</p>
-          <h4>Other summary statistics:</h4>
+          {false && <div><h4>Other summary statistics:</h4>
           <p>Population size: {incomeData.length}</p>
-          <p>Average income: {empty ? "undefined" : incomeData.meanIncome().toFixed(3)}</p>
+          <p>Average income: {empty ? "undefined" : incomeData.meanIncome().toFixed(3)}</p></div>}
           {false && <p>Mean log income over log mean income: {empty ? "undefined" : incomeData.meanLogIncomeOverLogMeanIncome().toFixed(3)}</p>}
         </div>
       </div>

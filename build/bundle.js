@@ -36551,22 +36551,26 @@ var GiniDemo = React.createClass({
             ),
             " is the area of the grey section of the Lorenz curve divided by the sum of the red and grey areas. If everyone has the same income, then it will be 0. If one person has all the money, it will be 1."
           ),
-          React.createElement(
-            "h4",
+          false && React.createElement(
+            "div",
             null,
-            "Other summary statistics:"
-          ),
-          React.createElement(
-            "p",
-            null,
-            "Population size: ",
-            incomeData.length
-          ),
-          React.createElement(
-            "p",
-            null,
-            "Average income: ",
-            empty ? "undefined" : incomeData.meanIncome().toFixed(3)
+            React.createElement(
+              "h4",
+              null,
+              "Other summary statistics:"
+            ),
+            React.createElement(
+              "p",
+              null,
+              "Population size: ",
+              incomeData.length
+            ),
+            React.createElement(
+              "p",
+              null,
+              "Average income: ",
+              empty ? "undefined" : incomeData.meanIncome().toFixed(3)
+            )
           ),
           false && React.createElement(
             "p",
