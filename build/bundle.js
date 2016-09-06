@@ -31232,7 +31232,7 @@ var GiniDemo = React.createClass({
             { className: "row" },
             React.createElement(
               "div",
-              { className: "col-md-6" },
+              { className: "col-lg-6" },
               React.createElement(
                 "p",
                 null,
@@ -31242,7 +31242,7 @@ var GiniDemo = React.createClass({
             ),
             React.createElement(
               "div",
-              { className: "col-md-6" },
+              { className: "col-lg-6" },
               React.createElement(
                 "p",
                 null,

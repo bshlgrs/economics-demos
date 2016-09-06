@@ -47,11 +47,11 @@ const GiniDemo = React.createClass({
             onChange={(incomes) => this.setState({incomeData: new IncomeData(incomes)})} />
           <hr />
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-lg-6">
               <p>Here's a graph of the income distribution:</p>
               {this.renderIncomesGraph()}
             </div>
-            <div className="col-md-6">
+            <div className="col-lg-6">
               <p>Here's your <a href="https://en.wikipedia.org/wiki/Lorenz_curve">Lorenz curve</a>:</p>
               <LorenzCurve incomeData={incomeData} />
             </div>
