@@ -1,6 +1,6 @@
 class IncomeData {
   constructor (incomes) {
-    this.incomes = incomes.sort();
+    this.incomes = incomes.sort((a, b) => a - b);
     this.length = incomes.length;
     this.cumulativeIncomes = this.getCumulativeIncomes();
   }
