@@ -36741,7 +36741,7 @@ var LorenzCurve = React.createClass({
         { x: "0.2", y: "1.1", fontSize: "0.06" },
         "fraction of population"
       ),
-      giniCoefficient && React.createElement(
+      giniCoefficient != null && React.createElement(
         "text",
         { x: "0.1", y: "0.15", fontSize: "0.1" },
         "G = ",

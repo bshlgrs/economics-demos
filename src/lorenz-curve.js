@@ -40,7 +40,7 @@ const LorenzCurve = React.createClass({
       <text x="0.05" y="-0.85" fontSize="0.06" writingMode="tb-rl" transform="rotate(180)">cumulative share of income</text>
       <text x="0.2" y="1.1" fontSize="0.06" >fraction of population</text>
 
-      {giniCoefficient &&
+      {giniCoefficient != null &&
         <text x="0.1" y="0.15" fontSize="0.1" >G = {giniCoefficient.toFixed(3)}</text>}
     </svg>
   },
