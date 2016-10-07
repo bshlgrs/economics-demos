@@ -1,12 +1,11 @@
 from sympy import *
 
-print("Part 0: some variables. First we define the tax rate and the UBI.")
+# Part 0: some variables. First we define the tax rate and the UBI
 nontax_rate, ubi = symbols("nontax_rate ubi", positive = True)
 
-print("""
-    Part 1: How much do invididuals work, given a tax rate and UBI?
-First we find the optimal hours worked for an individual by
-differentiating utility with respect to hours worked and solving for 0:""")
+## Part 1: How much do invididuals work, given a tax rate and UBI?
+# First we find the optimal hours worked for an individual by
+# differentiating utility with respect to hours worked and solving for 0:""")
 
 hours, wage = symbols("hours wage", positive = True)
 
@@ -70,3 +69,5 @@ total_utility_d_rate = diff(total_utility, nontax_rate)
 print("total_utility_d_rate = ", total_utility_d_rate)
 [optimal_rate] = solveset(total_utility_d_rate, nontax_rate)
 print("optimal rate is", optimal_rate)
+
+## This is the harmonic mean of the wages divided by the arithmetic mean of the wages!
