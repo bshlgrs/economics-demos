@@ -1,6 +1,6 @@
 from sympy import *
 
-x, r = symbols("x r")
+x, r = symbols("x r", positive=True)
 
 # Suppose the returns to thinking are logarithmic.
 # Maybe the cost of manufacturing a paperclip after you’ve expended r effort on
@@ -11,6 +11,17 @@ paperclips = (x - r) * log(r)
 
 # this is optimized when
 
-[optimal_r] = solve(diff(paperclips, r), r)
+solutions = solve(diff(paperclips, r), r)
+try:
+    [optimal_r] = solutions
+except ValueError:
+    print(solutions)
+    exit(1)
 
-print(optimal_r)
+optimal_r_func = lambdify(x, optimal_r)
+
+print(latex(optimal_r))
+
+for i in range(300):
+    print(optimal_r_func(10**i), i)
+
